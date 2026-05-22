@@ -2,6 +2,8 @@
 
 スキャンPDFのOCR処理を効率的に行うための完全なドキュメント一式です。
 
+> **Version:** v1.1.0 | **Last Updated:** 2026-05-22
+
 ## 📦 含まれるファイル
 
 ### 1. **Pytesseract_Complete_Guide.docx** （メインドキュメント）
