@@ -63,7 +63,9 @@ install_tesseract() {
     else
         echo "対応していないOSです: $OS_TYPE"
         echo "Windowsの場合は以下を参照："
-        echo "https://github.com/UB-Mannheim/tesseract/wiki"
+        echo "  - インストーラ: https://github.com/UB-Mannheim/tesseract/wiki"
+        echo "  - 事前環境チェック: check_windows_environment.ps1 を PowerShell で実行"
+        echo "      powershell -ExecutionPolicy Bypass -File .\\check_windows_environment.ps1"
         exit 1
     fi
     

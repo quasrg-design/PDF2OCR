@@ -21,6 +21,12 @@ $ pip install pytesseract pillow pdf2image
 1. https://github.com/UB-Mannheim/tesseract/wiki からインストーラダウンロード
 2. インストール時に「Japanese」言語を選択
 3. pip install pytesseract pillow pdf2image
+
+### Windows 事前チェック（推奨）
+インストール状況をまとめて確認するスクリプトが付属しています：
+PS> powershell -ExecutionPolicy Bypass -File .\check_windows_environment.ps1
+Python / pytesseract / Pillow / pdf2image / Tesseract-OCR / 言語パック
+/ Poppler の有無と、確認日・コンピュータ名・ユーザー名を画面表示します。
 """
 
 # ========================================
@@ -342,7 +348,8 @@ done
 - Tesseract 日本語言語パック: https://github.com/tesseract-ocr/tesseract/wiki/Data-Files
 
 セットアップ:
-- 本プロジェクトの setup_pytesseract.sh を実行
+- Linux/macOS: 本プロジェクトの setup_pytesseract.sh を実行
+- Windows: 本プロジェクトの check_windows_environment.ps1 で事前確認
 
 サンプルコード:
 - 本プロジェクトの pytesseract_sample_code.py を参照
