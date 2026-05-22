@@ -1,6 +1,9 @@
 #!/bin/bash
 # Pytesseract セットアップスクリプト
 # このスクリプトはLinuxおよびmacOSで使用可能です
+#
+# Version: v1.1.0
+# Last Updated: 2026-05-22
 
 set -e  # エラーで止まる
 

@@ -4,6 +4,9 @@
 # 用途: Pytesseract / PDF2OCR を実行するために必要な
 #       Windowsプログラム類がインストールされているかを確認します
 #
+# Version: v1.1.0
+# Last Updated: 2026-05-22
+#
 # 実行方法:
 #   PowerShellを起動し、以下のコマンドを実行してください
 #     powershell -ExecutionPolicy Bypass -File .\check_windows_environment.ps1

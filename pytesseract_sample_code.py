@@ -2,9 +2,12 @@
 Pytesseract OCR 実装サンプルコード
 スキャンPDFをテキストに変換するための完全な実装例
 
+Version: v1.1.0
+Last Updated: 2026-05-22
+
 使用前に以下をインストール：
   pip install pytesseract pillow pdf2image --break-system-packages
-  
+
 そして、Tesseract-OCRをインストール：
   Linux: sudo apt-get install tesseract-ocr tesseract-ocr-jpn
   macOS: brew install tesseract
