@@ -67,6 +67,25 @@ chmod +x setup_pytesseract.sh
 
 **推奨用途:** 用途を決めてすぐ実装したい方
 
+### 5. **check_windows_environment.ps1** （Windows環境チェックスクリプト）
+Windowsで必要なプログラム類のインストール状況を事前確認するPowerShellスクリプト
+
+**実行方法:**
+```powershell
+powershell -ExecutionPolicy Bypass -File .\check_windows_environment.ps1
+```
+
+**確認内容:**
+- 確認日 / コンピュータ名 / ユーザー名
+- OS / PowerShell バージョン
+- Python / pip
+- Python パッケージ（pytesseract / Pillow / pdf2image）
+- Tesseract-OCR とインストール先
+- 言語パック（jpn / eng）の有無
+- Poppler（pdf2image が依存）
+
+**推奨用途:** Windowsユーザーがセットアップ前に環境を確認したいとき
+
 ---
 
 ## 🚀 クイックスタート
@@ -97,6 +116,12 @@ Windows:
 1. https://github.com/UB-Mannheim/tesseract/wiki からインストーラをダウンロード
 2. インストール時に「Japanese」言語を選択
 3. `pip install pytesseract pillow pdf2image`
+
+**インストール後の事前チェック（推奨）:**
+```powershell
+powershell -ExecutionPolicy Bypass -File .\check_windows_environment.ps1
+```
+必要なプログラム・パッケージ・言語パックが揃っているかを確認できます。
 
 ### 2. 最初のOCR処理
 
@@ -176,7 +201,9 @@ text = pdf_to_text_with_page_range('large_doc.pdf', first_page=1, last_page=5)
 
 **Q: TesseractNotFoundError**
 - 原因: Tesseract-OCRがインストールされていない
-- 解決: setup_pytesseract.sh を実行
+- 解決:
+  - Linux/macOS: `setup_pytesseract.sh` を実行
+  - Windows: `check_windows_environment.ps1` で状況を確認後、インストーラを実行
 
 **Q: 日本語が認識されない**
 - 原因: 日本語言語パッケージがない
@@ -300,7 +327,8 @@ text = pdf_to_text_with_page_range('large_doc.pdf', first_page=1, last_page=5)
 - [ ] Tesseract-OCRがインストールされている
 - [ ] 言語パッケージ（日本語）がインストールされている
 - [ ] Pythonパッケージがインストールされている
-- [ ] setup_pytesseract.sh の確認テストに成功
+- [ ] setup_pytesseract.sh の確認テストに成功（Linux/macOS）
+- [ ] check_windows_environment.ps1 がすべてOKを返す（Windows）
 - [ ] pytesseract_sample_code.py で実行確認
 - [ ] PDFファイルでテスト実行成功
 
@@ -357,10 +385,11 @@ A: Tesseract 標準版は GPU 対応していません。CUDA 対応版の構築
 ## 🎓 学習順序（推奨）
 
 1. このREADMEを読む（10分）
-2. setup_pytesseract.sh でセットアップ（10～30分）
-3. pytesseract_cheatsheet.py で基本を確認（10分）
-4. pytesseract_sample_code.py でコピ＆ペーストで実装（5分）
-5. Pytesseract_Complete_Guide.docx で詳細を学習（30～60分）
+2. **Windowsユーザーは check_windows_environment.ps1 で環境を事前確認（2分）**
+3. setup_pytesseract.sh（Linux/macOS）または手動セットアップ（Windows）（10～30分）
+4. pytesseract_cheatsheet.py で基本を確認（10分）
+5. pytesseract_sample_code.py でコピ＆ペーストで実装（5分）
+6. Pytesseract_Complete_Guide.docx で詳細を学習（30～60分）
 
 **総学習時間: 約1～2時間で実装可能**
 

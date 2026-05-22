@@ -9,6 +9,7 @@ Pytesseract OCR 実装サンプルコード
   Linux: sudo apt-get install tesseract-ocr tesseract-ocr-jpn
   macOS: brew install tesseract
   Windows: https://github.com/UB-Mannheim/tesseract/wiki からダウンロード
+          （インストール状況は check_windows_environment.ps1 で確認できます）
 """
 
 import os
