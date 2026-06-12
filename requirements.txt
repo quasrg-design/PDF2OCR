@@ -1,0 +1,16 @@
+# PDF2OCR 依存パッケージ
+# インストール: pip install -r requirements.txt
+#
+# 別途、以下のソフトのインストールも必要です:
+#   - Tesseract-OCR（日本語パック付き） https://github.com/UB-Mannheim/tesseract/wiki
+#   - Poppler                          https://github.com/oschwartz10612/poppler-windows/releases
+
+pytesseract>=0.3.13
+pillow>=10.0.0
+pdf2image>=1.16.0
+
+# GUIアプリ（pdf2ocr_gui.py）のドラッグ＆ドロップ機能に使用（任意・推奨）
+tkinterdnd2>=0.4.0
+
+# exe化（build_exe.bat）に使用（任意）
+pyinstaller>=6.0.0

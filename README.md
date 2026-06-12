@@ -2,7 +2,7 @@
 
 スキャンPDFのOCR処理を効率的に行うための完全なドキュメント一式です。
 
-> **Version:** v1.1.0 | **Last Updated:** 2026-05-22
+> **Version:** v1.2.1 | **Last Updated:** 2026-06-12
 
 ## 📦 含まれるファイル
 
@@ -88,6 +88,56 @@ powershell -ExecutionPolicy Bypass -File .\check_windows_environment.ps1
 
 **推奨用途:** Windowsユーザーがセットアップ前に環境を確認したいとき
 
+### 6. **pdf2ocr_gui.py** （GUIアプリ）
+ドラッグアンドドロップでスキャンPDFをテキスト化できるGUIアプリケーション
+
+**実行方法:**
+```powershell
+pip install tkinterdnd2   # ドラッグアンドドロップ対応（推奨）
+python pdf2ocr_gui.py
+```
+
+**主な機能:**
+- PDFファイル / フォルダのドラッグアンドドロップ
+- ファイル選択ボタン / フォルダ選択ボタン（複数PDF一括処理対応）
+- 高精度OCR（DPI 300 / jpn+eng）
+- 処理進捗の表示（ファイル単位・ページ単位）
+- 完了時に保存先を確認するダイアログ（フォルダを開く機能付き）
+- 保存先は「PDFと同じフォルダ」または「指定フォルダ」を選択可能
+
+**推奨用途:** コマンド操作なしでOCR処理を行いたい方
+
+### 7. **build_exe.bat** （exe化スクリプト）
+pdf2ocr_gui.py を Windows実行ファイル（PDF2OCR.exe）に変換するビルドスクリプト
+
+**実行方法:** Windows上でダブルクリック（完了すると `dist\PDF2OCR.exe` が作成されます）
+
+**注意:** exe化しても Tesseract-OCR と Poppler は実行するPCに別途インストールが必要です
+
+**推奨用途:** Pythonコマンドを使わずにアプリとして配布・利用したい方
+
+### 8. **GUI_利用手順書.md** （GUIアプリ利用手順書）
+GUIアプリ（pdf2ocr_gui.py / PDF2OCR.exe）の導入から操作までを、Windows初心者向けに解説した手順書
+
+**内容:**
+- 事前準備（Python / Tesseract-OCR / Poppler のインストール）
+- Pythonで起動する方法／exe化して起動する方法
+- アプリの画面構成と操作の流れ（図解付き）
+- よくあるトラブルと解決法（署名エラー・PATH未設定・文字化け等）
+- 仕様一覧
+
+**推奨用途:** GUIアプリを初めて使う方、操作に迷ったとき
+
+### 9. **requirements.txt** （依存パッケージ一覧）
+Pythonパッケージをまとめてインストールするための定義ファイル
+
+**実行方法:**
+```powershell
+pip install -r requirements.txt
+```
+
+**推奨用途:** 必要なPythonパッケージを一括で揃えたいとき
+
 ---
 
 ## 🚀 クイックスタート
@@ -124,6 +174,9 @@ Windows:
 powershell -ExecutionPolicy Bypass -File .\check_windows_environment.ps1
 ```
 必要なプログラム・パッケージ・言語パックが揃っているかを確認できます。
+
+> 💡 コマンド操作なしでOCRしたい場合は、GUIアプリ（`pdf2ocr_gui.py`）が便利です。
+> 導入から操作までの詳しい手順は **[GUI_利用手順書.md](GUI_利用手順書.md)** を参照してください。
 
 ### 2. 最初のOCR処理
 
