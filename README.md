@@ -2,7 +2,7 @@
 
 スキャンPDFのOCR処理を効率的に行うための完全なドキュメント一式です。
 
-> **Version:** v1.1.0 | **Last Updated:** 2026-05-22
+> **Version:** v1.2.0 | **Last Updated:** 2026-06-12
 
 ## 📦 含まれるファイル
 
@@ -87,6 +87,34 @@ powershell -ExecutionPolicy Bypass -File .\check_windows_environment.ps1
 - Poppler（pdf2image が依存）
 
 **推奨用途:** Windowsユーザーがセットアップ前に環境を確認したいとき
+
+### 6. **pdf2ocr_gui.py** （GUIアプリ）
+ドラッグアンドドロップでスキャンPDFをテキスト化できるGUIアプリケーション
+
+**実行方法:**
+```powershell
+pip install tkinterdnd2   # ドラッグアンドドロップ対応（推奨）
+python pdf2ocr_gui.py
+```
+
+**主な機能:**
+- PDFファイル / フォルダのドラッグアンドドロップ
+- ファイル選択ボタン / フォルダ選択ボタン（複数PDF一括処理対応）
+- 高精度OCR（DPI 300 / jpn+eng）
+- 処理進捗の表示（ファイル単位・ページ単位）
+- 完了時に保存先を確認するダイアログ（フォルダを開く機能付き）
+- 保存先は「PDFと同じフォルダ」または「指定フォルダ」を選択可能
+
+**推奨用途:** コマンド操作なしでOCR処理を行いたい方
+
+### 7. **build_exe.bat** （exe化スクリプト）
+pdf2ocr_gui.py を Windows実行ファイル（PDF2OCR.exe）に変換するビルドスクリプト
+
+**実行方法:** Windows上でダブルクリック（完了すると `dist\PDF2OCR.exe` が作成されます）
+
+**注意:** exe化しても Tesseract-OCR と Poppler は実行するPCに別途インストールが必要です
+
+**推奨用途:** Pythonコマンドを使わずにアプリとして配布・利用したい方
 
 ---
 
