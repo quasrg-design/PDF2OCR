@@ -300,21 +300,37 @@ text = pdf_to_text_with_page_range('large_doc.pdf', first_page=1, last_page=5)
 
 ### よくある問題
 
-**Q: TesseractNotFoundError**
+**Q: 起動時に「Tesseract が見つかりません」ダイアログが出る（GUIアプリ）**
 - 原因: Tesseract-OCRがインストールされていない
 - 解決:
+  - Windows: https://github.com/UB-Mannheim/tesseract/wiki からインストーラをダウンロードし、言語選択で「Japanese」を必ずチェック
   - Linux/macOS: `setup_pytesseract.sh` を実行
-  - Windows: `check_windows_environment.ps1` で状況を確認後、インストーラを実行
+  - 確認: `check_windows_environment.ps1` で状況を確認
 
-**Q: 日本語が認識されない**
+**Q: 起動時に「Poppler が見つかりません」ダイアログが出る（GUIアプリ）**
+- 原因: Poppler がインストールされていない、またはPATHが未設定
+- 解決:
+  - `winget install oschwartz10612.Poppler`（自動でPATH設定）
+  - または https://github.com/oschwartz10612/poppler-windows/releases から手動インストール後、`Library\bin` をPATHに追加
+
+**Q: TesseractNotFoundError（コードから利用時）**
+- 原因: Tesseract-OCRがインストールされていない、またはPATHが未設定
+- 解決: 上記「Tesseract が見つかりません」の対処を参照
+
+**Q: 日本語が認識されない / 文字化けする**
 - 原因: 日本語言語パッケージがない
-- 解決: `sudo apt-get install tesseract-ocr-jpn` (Linux)
+- 解決:
+  - Windows: Tesseract インストーラで「Japanese」を選択して再インストール
+  - Linux: `sudo apt-get install tesseract-ocr-jpn`
+  - macOS: `brew install tesseract-lang`
 
 **Q: OCR精度が低い**
-- 原因: DPI設定やPSM設定の問題
-- 解決: Pytesseract_Complete_Guide.docx の「6.2 品質向上のテクニック」を参照
+- 原因: スキャン解像度が低い、またはDPI/PSM設定の問題
+- 解決:
+  - スキャン元を300dpi以上で再スキャン
+  - Pytesseract_Complete_Guide.docx の「6.2 品質向上のテクニック」を参照
 
-詳細は pytesseract_cheatsheet.py の「11. よくある質問」を参照
+詳細は `GUI_利用手順書.md` の「7. よくあるトラブルと解決法」および「9. よくある質問（Q&A）」を参照
 
 ---
 
@@ -479,7 +495,7 @@ A: Tesseract 標準版は GPU 対応していません。CUDA 対応版の構築
 
 2026年5月14日
 
-最終更新: 2026年5月14日
+最終更新: 2026年6月12日
 
 ---
 
