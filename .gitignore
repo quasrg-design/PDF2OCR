@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# PyInstaller (build_exe.bat の生成物)
+build/
+dist/
+*.spec
+
+# OCR 出力
+*.txt
+!requirements*.txt
