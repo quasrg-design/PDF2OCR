@@ -36,6 +36,7 @@ except ImportError:
 
 import pytesseract
 from pdf2image import convert_from_path, pdfinfo_from_path
+from pdf2image.exceptions import PDFInfoNotInstalledError
 
 APP_NAME = "PDF2OCR"
 APP_VERSION = "v1.2.0"
@@ -71,6 +72,38 @@ def setup_tesseract() -> bool:
     return False
 
 
+def setup_poppler() -> bool:
+    """Poppler (pdfinfo) が利用可能か確認する。見つかれば True。"""
+    import shutil
+    if shutil.which("pdfinfo") or shutil.which("pdftoppm"):
+        return True
+    if sys.platform == "win32":
+        common_dirs = [
+            r"C:\Program Files\poppler\Library\bin",
+            r"C:\poppler\Library\bin",
+            os.path.expandvars(r"%LOCALAPPDATA%\poppler\Library\bin"),
+        ]
+        for bin_dir in common_dirs:
+            if os.path.exists(os.path.join(bin_dir, "pdfinfo.exe")):
+                os.environ["PATH"] = bin_dir + os.pathsep + os.environ.get("PATH", "")
+                return True
+    return False
+
+
+_POPPLER_HELP = (
+    "PDF→画像変換に必要な Poppler がインストールされていないか、\n"
+    "PATH が通っていません。\n\n"
+    "【入手先】\n"
+    "https://github.com/oschwartz10612/poppler-windows/releases\n\n"
+    "【インストール手順】\n"
+    "1. 上記URLから Release-xx.xx.x-0.zip をダウンロード\n"
+    "2. 任意のフォルダに解凍\n"
+    "3. 解凍フォルダ内の「Library\\bin」を\n"
+    "   環境変数 PATH に追加してください\n\n"
+    "設定後、アプリを再起動してください。"
+)
+
+
 # ----------------------------------------------------------------------
 # メインアプリケーション
 # ----------------------------------------------------------------------
@@ -92,10 +125,16 @@ class Pdf2OcrApp:
             messagebox.showerror(
                 "Tesseract が見つかりません",
                 "Tesseract-OCR がインストールされていないか、見つかりませんでした。\n\n"
-                "https://github.com/UB-Mannheim/tesseract/wiki から\n"
-                "インストーラをダウンロードし、「Japanese」言語を選択して\n"
-                "インストールしてください。",
+                "【入手先】\n"
+                "https://github.com/UB-Mannheim/tesseract/wiki\n\n"
+                "【インストール手順】\n"
+                "1. 上記URLからインストーラをダウンロード\n"
+                "2. インストール時の言語選択で「Japanese」を必ずチェック\n"
+                "3. インストール完了後、アプリを再起動してください。",
             )
+
+        if not setup_poppler():
+            messagebox.showwarning("Poppler が見つかりません", _POPPLER_HELP)
 
     # ------------------------------------------------------------------
     # UI 構築
@@ -324,6 +363,12 @@ class Pdf2OcrApp:
                 try:
                     info = pdfinfo_from_path(str(pdf_path))
                     total_pages = int(info.get("Pages", 0))
+                except PDFInfoNotInstalledError:
+                    self.root.after(
+                        0,
+                        lambda: messagebox.showerror("Poppler が見つかりません", _POPPLER_HELP),
+                    )
+                    return
                 except Exception as e:
                     errors.append(f"{pdf_path.name}: PDF情報の取得に失敗 ({e})")
                     continue
@@ -355,6 +400,12 @@ class Pdf2OcrApp:
                             images[0], lang=OCR_LANG
                         )
                         texts.append(f"--- ページ {page} ---\n{page_text}\n")
+                    except PDFInfoNotInstalledError:
+                        self.root.after(
+                            0,
+                            lambda: messagebox.showerror("Poppler が見つかりません", _POPPLER_HELP),
+                        )
+                        return
                     except Exception as e:
                         errors.append(f"{pdf_path.name} p.{page}: {e}")
                         failed = True
